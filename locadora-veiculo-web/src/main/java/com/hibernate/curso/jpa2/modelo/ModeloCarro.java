@@ -14,6 +14,7 @@ public class ModeloCarro {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigo;
+	
 	private String descricao;
 	
 	@ManyToOne

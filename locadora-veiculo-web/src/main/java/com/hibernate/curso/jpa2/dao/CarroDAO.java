@@ -1,5 +1,6 @@
 package com.hibernate.curso.jpa2.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -7,14 +8,14 @@ import javax.persistence.EntityManager;
 
 import com.hibernate.curso.jpa2.modelo.Carro;
 
-public class CarroDAO {
+public class CarroDAO implements Serializable{
 	
 	@Inject
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
 	public List<Carro> buscaTodos(){
-		return entityManager.createQuery("from Carro").getResultList();
+		return entityManager.createNamedQuery("Carro.buscarTodos").getResultList();
 	}
 	
 	public void salvar(Carro carro){
@@ -33,10 +34,22 @@ public class CarroDAO {
 	}
 
 	public Carro buscarCarroComAcessorios(Long codigo) {
-		return (Carro) entityManager.createQuery("select c from Carro c JOIN c.acessorios a where c.codigo = :codigo")
+		return (Carro) entityManager.createNamedQuery("Carro.buscarCarroComACessorios")
 				.setParameter("codigo", codigo)
 				.getSingleResult();
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Carro> buscaComPaginacao(int first, int pageSize) {
+		return entityManager.createNamedQuery("Carro.buscarTodos")
+				.setFirstResult(first)
+				.setMaxResults(pageSize)
+				.getResultList();
+	}
+
+	public Long encontrarQuantidadeDeCarros() {
+		return entityManager.createQuery("select count(c) from Carro c", Long.class).getSingleResult();
 	}
 }
 

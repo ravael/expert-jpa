@@ -8,7 +8,9 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.hibernate.curso.jpa2.dao.CarroDAO;
 import com.hibernate.curso.jpa2.modelo.Carro;
+import com.hibernate.curso.jpa2.modeloLazy.LazyCarroDataModel;
 import com.hibernate.curso.jpa2.service.CarroService;
 import com.hibernate.curso.jpa2.service.NegocioException;
 import com.hibernate.curso.jpa2.util.jsf.FacesUtil;
@@ -21,6 +23,11 @@ public class PesquisaCarroBean implements Serializable{
 	
 	@Inject
 	private CarroService carroService;
+	
+	private LazyCarroDataModel lazyCarros;
+	
+	@Inject
+	private CarroDAO carroDao;
 	
 	private Carro carroSelecionado;
 	
@@ -39,7 +46,9 @@ public class PesquisaCarroBean implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		this.carros = carroService.buscaTodos();
+		this.lazyCarros = new  LazyCarroDataModel(carroDao);
+//		this.carros = carroService.buscaTodos();
+		
 	}
 
 	public List<Carro> getCarros() {
@@ -56,5 +65,13 @@ public class PesquisaCarroBean implements Serializable{
 
 	public void setCarroSelecionado(Carro carroSelecionado) {
 		this.carroSelecionado = carroSelecionado;
+	}
+
+	public LazyCarroDataModel getLazyCarros() {
+		return lazyCarros;
+	}
+
+	public void setLazyCarros(LazyCarroDataModel lazyCarros) {
+		this.lazyCarros = lazyCarros;
 	}
 }
