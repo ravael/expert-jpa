@@ -1,6 +1,8 @@
 package com.hibernate.curso.jpa2.modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,9 @@ public class ModeloCarro {
 	
 	@ManyToOne
 	private Fabricante fabricante;
+	
+	@Enumerated(EnumType.STRING)
+	private Categoria categoria;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -57,6 +62,12 @@ public class ModeloCarro {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	
 	

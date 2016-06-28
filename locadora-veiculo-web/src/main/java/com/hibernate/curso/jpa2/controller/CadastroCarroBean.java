@@ -42,7 +42,6 @@ public class CadastroCarroBean implements Serializable {
 	@PostConstruct
 	public void inicializar() {
 		this.limpar();
-		
 		this.acessorios = acessorioDAO.buscarTodos();
 		this.modelosCarros = this.modeloCarroDAO.buscarTodos();
 	}

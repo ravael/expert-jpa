@@ -34,14 +34,14 @@
 					<p:menubar styleClass="menu-sistema">
 						<p:submenu label="Cadastros">
 							<p:menuitem value="Fabricante" outcome="/fabricante/pesquisaFabricantes.xhtml" />
-							<p:menuitem value="Modelo Carro" outcome="/modeloCarro/cadastroModeloCarro.xhtml" />
+							<p:menuitem value="Modelo Carro" outcome="/modeloCarro/pesquisaModeloCarro.xhtml" />
 							<p:menuitem value="Acessório" outcome="/acessorio/pesquisaAcessorios.xhtml" />
-							<p:menuitem value="Carro" outcome="/carro/cadastroCarro.xhtml" />
+							<p:menuitem value="Carro" outcome="/carro/pesquisaCarros.xhtml" />
 							<p:separator/>
-							<p:menuitem value="Funcionário" />
-							<p:menuitem value="Motorista" />
+							<p:menuitem value="Funcionário" outcome="/funcionario/cadastroFuncionario.xhtml" />
+							<p:menuitem value="Motorista"  outcome="/motorista/cadastroMotorista.xhtml"/>
 						</p:submenu>
-						<p:menuitem value="Novo Aluguel" />
+						<p:menuitem value="Novo Aluguel"  outcome="/aluguel/novoAluguel.xhtml"/>
 						<p:submenu label="Relatórios">
 							<p:menuitem value="Receita por carro" />
 						</p:submenu>

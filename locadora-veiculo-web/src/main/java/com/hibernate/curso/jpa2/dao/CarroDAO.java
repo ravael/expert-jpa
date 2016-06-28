@@ -20,4 +20,23 @@ public class CarroDAO {
 	public void salvar(Carro carro){
 		entityManager.merge(carro);
 	}
+
+	public Carro buscarPeloCodigo(Long codigo) {
+		return entityManager.find(Carro.class, codigo);
+	}
+
+	public void excluir(Carro carroSelecionado) {
+		carroSelecionado = entityManager.find(Carro.class, carroSelecionado.getCodigo());
+		entityManager.remove(carroSelecionado);
+		entityManager.flush();
+		
+	}
+
+	public Carro buscarCarroComAcessorios(Long codigo) {
+		return (Carro) entityManager.createQuery("select c from Carro c JOIN c.acessorios a where c.codigo = :codigo")
+				.setParameter("codigo", codigo)
+				.getSingleResult();
+		
+	}
 }
+

@@ -40,6 +40,7 @@ public class CadastroAcessorioBean implements Serializable{
 		try {
 			acessorioService.salvar(acessorio);
 			FacesUtil.addSuccessMessage("Acessorio cadastrado com sucesso");
+			limpar();
 		} catch (NegocioException e) {
 			FacesUtil.addErrorMessage(e.getMessage());
 		}

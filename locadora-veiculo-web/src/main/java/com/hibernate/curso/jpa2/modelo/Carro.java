@@ -4,11 +4,15 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Carro {
@@ -25,8 +29,14 @@ public class Carro {
 	@ManyToOne
 	private ModeloCarro modelo;
 
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="carro_acessorio"
+    , joinColumns=@JoinColumn(name="codigo_carro")
+    , inverseJoinColumns=@JoinColumn(name="codigo_acessorio"))
 	private List<Acessorio> acessorios;
+	
+	@OneToMany(mappedBy="carro")
+	private List<Aluguel> alugueis;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -70,6 +80,7 @@ public class Carro {
 	public void setAcessorios(List<Acessorio> acessorios) {
 		this.acessorios = acessorios;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -92,6 +103,12 @@ public class Carro {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+	public List<Aluguel> getAlugueis() {
+		return alugueis;
+	}
+	public void setAlugueis(List<Aluguel> alugueis) {
+		this.alugueis = alugueis;
 	}
 	
 	

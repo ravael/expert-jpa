@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import com.hibernate.curso.jpa2.modelo.ModeloCarro;
+import com.hibernate.curso.jpa2.service.NegocioException;
 import com.hibernate.curso.jpa2.util.jpa.Transactional;
 
 public class ModeloCarroDAO implements Serializable{
@@ -28,7 +29,7 @@ public class ModeloCarroDAO implements Serializable{
 	}
 	
 	@Transactional
-	public void excluir(ModeloCarro modeloCarro){
+	public void excluir(ModeloCarro modeloCarro) throws NegocioException{
 		modeloCarro = buscarPeloCodigo(modeloCarro.getCodigo());
 		entityManager.remove(modeloCarro);
 		entityManager.flush();
