@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,10 +38,10 @@ public class Carro {
 	private String chassi;
 	private BigDecimal valorDiaria;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
 	private ModeloCarro modelo;
 
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
 	@JoinTable(name="carro_acessorio"
     , joinColumns=@JoinColumn(name="codigo_carro")
     , inverseJoinColumns=@JoinColumn(name="codigo_acessorio"))

@@ -31,13 +31,16 @@ public class PesquisaCarroBean implements Serializable{
 	
 	private Carro carroSelecionado;
 	
+	private Carro carroSelecionadoParaExcluir;
+	
 	public void buscarCarroComAcessorios(){
 		carroSelecionado = carroService.buscarCarroComAcessorios(carroSelecionado);
 	}
 	
 	public void excluir(){
 		try {
-			this.carroService.excluir(carroSelecionado);
+			carroService.excluir(carroSelecionadoParaExcluir);
+//			this.carros.remove(carroSelecionadoParaExcluir);
 			FacesUtil.addSuccessMessage("Carro excluido com sucesso.");
 		} catch (NegocioException e) {
 			FacesUtil.addErrorMessage(e.getMessage());
@@ -73,5 +76,13 @@ public class PesquisaCarroBean implements Serializable{
 
 	public void setLazyCarros(LazyCarroDataModel lazyCarros) {
 		this.lazyCarros = lazyCarros;
+	}
+
+	public Carro getCarroSelecionadoParaExcluir() {
+		return carroSelecionadoParaExcluir;
+	}
+
+	public void setCarroSelecionadoParaExcluir(Carro carroSelecionadoParaExcluir) {
+		this.carroSelecionadoParaExcluir = carroSelecionadoParaExcluir;
 	}
 }

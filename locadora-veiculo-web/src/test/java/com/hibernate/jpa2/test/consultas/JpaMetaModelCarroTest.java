@@ -30,7 +30,7 @@ private static EntityManagerFactory entityManagerFactory;
 	}
 	
 	@Test
-	public void carroValorDiariaMaiorQueMedia(){
+	public void carroMetaModelTest(){
 		
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Carro> criteriaQuery = builder.createQuery(Carro.class);
