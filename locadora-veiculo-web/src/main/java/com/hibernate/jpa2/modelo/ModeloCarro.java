@@ -3,6 +3,7 @@ package com.hibernate.jpa2.modelo;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ public class ModeloCarro {
 	
 	private String descricao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Fabricante fabricante;
 	
 	@Enumerated(EnumType.STRING)

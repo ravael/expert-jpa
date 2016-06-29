@@ -83,9 +83,15 @@
 			<scope>compile</scope>
 		</dependency>
 		
+		<!-- Juni (para teste unitários) -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+		
 	</dependencies>
 	
-
 
 	<!-- Repositorio PrimeFaces -->
 	<repositories>

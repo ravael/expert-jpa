@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @NamedQueries({
-@NamedQuery(name="Carro.buscarTodos", query="select c from Carro c"),
+@NamedQuery(name="Carro.buscarTodos", query="select c from Carro c inner join fetch c.modelo"),
 @NamedQuery(name="Carro.buscarCarroComACessorios", query="select c from Carro c JOIN c.acessorios a where c.codigo = :codigo")
 })
 public class Carro {
@@ -37,7 +37,7 @@ public class Carro {
 	private String chassi;
 	private BigDecimal valorDiaria;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private ModeloCarro modelo;
 
 	@ManyToMany(fetch=FetchType.LAZY)
@@ -98,6 +98,25 @@ public class Carro {
 		this.acessorios = acessorios;
 	}
 	
+	public List<Aluguel> getAlugueis() {
+		return alugueis;
+	}
+	public void setAlugueis(List<Aluguel> alugueis) {
+		this.alugueis = alugueis;
+	}
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	public Date getDataModificacao() {
+		return dataModificacao;
+	}
+	public void setDataModificacao(Date dataModificacao) {
+		this.dataModificacao = dataModificacao;
+	}
+	
 	@PrePersist
 	@PreUpdate
 	public void configuraDatasCriacao(){
@@ -131,25 +150,6 @@ public class Carro {
 			return false;
 		return true;
 	}
-	public List<Aluguel> getAlugueis() {
-		return alugueis;
-	}
-	public void setAlugueis(List<Aluguel> alugueis) {
-		this.alugueis = alugueis;
-	}
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-	public Date getDataModificacao() {
-		return dataModificacao;
-	}
-	public void setDataModificacao(Date dataModificacao) {
-		this.dataModificacao = dataModificacao;
-	}
-	
 	
 	
 }
