@@ -1,6 +1,7 @@
 package com.hibernate.curso.jpa2.modelo;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,6 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @NamedQueries({
@@ -43,6 +48,12 @@ public class Carro {
 	
 	@OneToMany(mappedBy="carro")
 	private List<Aluguel> alugueis;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCriacao;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataModificacao;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -87,6 +98,16 @@ public class Carro {
 		this.acessorios = acessorios;
 	}
 	
+	@PrePersist
+	@PreUpdate
+	public void configuraDatasCriacao(){
+		this.dataModificacao = new Date();
+		
+		if(this.dataCriacao == null ){
+			this.dataCriacao = new Date();
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -115,6 +136,18 @@ public class Carro {
 	}
 	public void setAlugueis(List<Aluguel> alugueis) {
 		this.alugueis = alugueis;
+	}
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	public Date getDataModificacao() {
+		return dataModificacao;
+	}
+	public void setDataModificacao(Date dataModificacao) {
+		this.dataModificacao = dataModificacao;
 	}
 	
 	
