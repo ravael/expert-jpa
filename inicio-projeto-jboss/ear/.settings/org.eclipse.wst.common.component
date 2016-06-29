@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="projeto-jboss">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="projeto-jboss-war.war" deploy-path="/" handle="module:/resource/projeto-jboss-war/projeto-jboss-war">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="projeto-jboss-ejb.jar" deploy-path="/" handle="module:/resource/projeto-jboss-ejb/projeto-jboss-ejb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="projeto-jboss-modelo.jar" deploy-path="/lib" handle="module:/resource/projeto-jboss-modelo/projeto-jboss-modelo">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
