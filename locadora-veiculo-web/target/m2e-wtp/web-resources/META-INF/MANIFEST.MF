@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: dwlnote
-Build-Jdk: 1.8.0_91
+Build-Jdk: 1.7.0_80
+Built-By: raphael
 Created-By: Maven Integration for Eclipse
 
