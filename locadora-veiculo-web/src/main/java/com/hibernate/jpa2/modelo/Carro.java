@@ -56,6 +56,9 @@ public class Carro {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataModificacao;
 	
+	
+	private byte[] foto;
+	
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -150,6 +153,12 @@ public class Carro {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+	public byte[] getFoto() {
+		return foto;
+	}
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
 	}
 	
 	
