@@ -19,7 +19,7 @@ import com.hibernate.jpa2.modelo.ModeloCarro;
 
 public class JpaEntidadeTransientTest {
 	
-private static EntityManagerFactory entityManagerFactory;
+	private static EntityManagerFactory entityManagerFactory;
 	
 	private EntityManager entityManager;
 
