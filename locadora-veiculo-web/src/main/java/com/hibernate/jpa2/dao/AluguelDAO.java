@@ -1,6 +1,7 @@
 package com.hibernate.jpa2.dao;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.YesNoType;
 
 import com.hibernate.jpa2.modelo.Aluguel;
 import com.hibernate.jpa2.modelo.ModeloCarro;
@@ -79,5 +88,54 @@ public class AluguelDAO implements Serializable{
 		}
 		
 		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Aluguel> buscarPorDataDeEntregaEModeloCarroCriteria(
+			Date dataEntrega, ModeloCarro modelo) {
+		
+		Session session = entityManager.unwrap(Session.class);
+		Criteria criteria = session.createCriteria(Aluguel.class);
+		
+		if (dataEntrega != null){
+			criteria.add(Restrictions.between("dataEntrega", getDataInicial(dataEntrega),
+					getDataFinal(dataEntrega)));
+		}
+		
+		if (modelo != null){
+			criteria.createAlias("carro", "c");
+			criteria.add(Restrictions.eq("c.modelo", modelo));
+		}
+		
+		return criteria.list();
+	}
+	
+	private Date getDataInicial(Date dataEntrega){
+		Calendar dataEntregaInicial = Calendar.getInstance();
+		dataEntregaInicial.setTime(dataEntrega);
+		dataEntregaInicial.set(Calendar.HOUR_OF_DAY,0);
+		dataEntregaInicial.set(Calendar.MINUTE, 0);
+		dataEntregaInicial.set(Calendar.SECOND, 0);
+		
+		return dataEntregaInicial.getTime();
+	}
+	
+	private Date getDataFinal(Date dataEntrega){
+		Calendar dataEntregaFinal = Calendar.getInstance();
+		dataEntregaFinal.setTime(dataEntrega);
+		dataEntregaFinal.set(Calendar.HOUR_OF_DAY,23);
+		dataEntregaFinal.set(Calendar.MINUTE, 59);
+		dataEntregaFinal.set(Calendar.SECOND, 59);
+		return dataEntregaFinal.getTime();
+	}
+
+	public BigDecimal calcularTotalDoMesDe(int mes) {
+		
+		Session session = entityManager.unwrap(Session.class);
+		Criteria  criteria = session.createCriteria(Aluguel.class);
+		
+		criteria.setProjection(Projections.sum("valorTotal"));
+		criteria.add(Restrictions.sqlRestriction("month(dataPedido) = ?", mes, StandardBasicTypes.INTEGER));
+		return (BigDecimal) criteria.uniqueResult();
 	}
 }
